@@ -1,0 +1,27 @@
+#!/bin/sh
+####  PBS preamble
+
+#PBS -N testmulticore
+
+# Change "bjensen" to your uniqname:
+#PBS -M yongzhao_wang@outlook.com
+#PBS -m abe
+
+# Change the number of cores (ppn=1), amount of memory, and walltime:
+#PBS -l nodes=1:ppn=5,pmem=4gb,walltime=60:00:00
+#PBS -j oe
+#PBS -V
+
+# Change "example_flux" to the name of your Flux allocation:
+#PBS -A wellman_flux
+#PBS -q flux
+#PBS -l qos=flux
+
+####  End PBS preamble
+
+#  Put your job commands here:
+module load python-anaconda3/latest-3.6
+
+cd ${PBS_O_WORKDIR}
+
+python training_single.py > out.txt

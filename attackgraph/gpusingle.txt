@@ -1,0 +1,29 @@
+#!/bin/sh
+####  PBS preamble
+
+#PBS -N testmulticore
+
+# Change "bjensen" to your uniqname:
+#PBS -M yongzhao_wang@outlook.com
+#PBS -m abe
+
+# Change the number of cores (ppn=1), amount of memory, and walltime:
+#PBS -l nodes=1:gpus=2:titanv,pmem=12gb,walltime=05:00:00
+#PBS -j oe
+#PBS -V
+
+# Change "example_flux" to the name of your Flux allocation:
+#PBS -A wellman_fluxg
+#PBS -q fluxg
+#PBS -l qos=flux
+
+####  End PBS preamble
+
+#  Put your job commands here:
+module load python-anaconda3/latest-3.6
+module load cuda/9.0
+module load cudnn/9.0-v7.0
+
+cd ${PBS_O_WORKDIR}
+
+python deepgraph_runner_subproc.py > out.txt
